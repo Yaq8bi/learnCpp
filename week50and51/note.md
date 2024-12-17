@@ -20,6 +20,7 @@
     int a{8};
     ```
 ---
+- **Static:** Only way to access it, with the help of a "Helper function".
 
 #### New & Deleete
 1. **`New`** allocates memory, **`Delete`** deallocates the memory.
@@ -48,9 +49,15 @@
 2. No more `#define`. We use `constexpr`!
 3. When working with *multi instance* module, we must have *create* and *destroy* funcions!
 4. With single instance, we must have a *initialize* and a *deinitialize* functions.
-4. If its *dymanic memory allocation*, **always clean afterwards**
+5. If its *dymanic memory allocation*, **always clean afterwards**
    ```cpp
    free();
    ```
 ---
+6. Pointer allocates how many bytes?
+- En sevdigim numara...
 
+
+## To-Do
+
+[] Visit pdf from week 51, tuesday.
