@@ -19,8 +19,9 @@
   constexpr int len{10};
     int a{8};
     ```
----
 - **Static:** Only way to access it, with the help of a "Helper function".
+
+---
 
 #### New & Deleete
 1. **`New`** allocates memory, **`Delete`** deallocates the memory.
