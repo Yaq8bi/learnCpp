@@ -1,3 +1,44 @@
+/*
+#include <ctime>
+#include <cstdlib>
+#include <iostream>
+
+constexpr int RANGE_MAX = 99;
+constexpr int COLUMNS = 3;
+constexpr int ROWS = 2;
+
+int main(void)
+{
+    int matrix[ROWS][COLUMNS];
+
+    std::srand(std::time(nullptr));
+
+    // Fill the array using random numbers
+    for (int(*rptr)[COLUMNS] = matrix; (rptr - matrix) < ROWS; rptr++)
+    {
+        for (int *cptr = *rptr; (cptr - *rptr) < COLUMNS; cptr++)
+        {
+            *cptr = std::rand() % (RANGE_MAX + 1);
+        }
+    }
+
+    // Print the array to the terminal
+    for (int(*rptr)[COLUMNS] = matrix; (rptr - matrix) < ROWS; rptr++)
+    {
+        for (int *cptr = *rptr; (cptr - *rptr) < COLUMNS; cptr++)
+        {
+            std::cout << *cptr << "\t";
+        }
+        std::cout << std::endl;
+    }
+
+    return 0;
+}
+
+
+*/
+
+
 #include <iostream>
 #include <random>
 #include <cstdlib>
