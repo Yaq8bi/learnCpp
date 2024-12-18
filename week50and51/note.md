@@ -61,4 +61,17 @@
 
 ## To-Do
 
-[] Visit pdf from week 51, tuesday.
+- [] Visit pdf from week 51, tuesday.
+- [] Ask Khan about this loop. What does the `(rptr - mtrxArr)` do?
+```cpp
+for (int(*rptr)[COLUMN] = mtrxArr; (rptr - mtrxArr) < ROW; rptr++)
+    {
+        printf("Row: %i", (rptr - mtrxArr));
+    }
+```
+- []
+
+
+### Tekrarla ve anla
+1. week50, Exercise 10.
+   - Cok onemli gorunuyor. Bu field'ta pointerlar onemli, bu loopu kullan ve anlamaya calis.
