@@ -30,7 +30,7 @@ int main()
 
     for (int (*rptr)[COLUMN] = mtrxArr; (rptr - mtrxArr) < ROW; rptr++)
     {
-        printf("Row %i: ", (rptr - mtrxArr));
+        printf("Row %li: ", (rptr - mtrxArr));
 
         for(int *cptr = *rptr; (cptr - *rptr) < COLUMN; cptr++)
         {
