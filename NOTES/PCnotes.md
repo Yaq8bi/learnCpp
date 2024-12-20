@@ -9,3 +9,20 @@
 ---
 - [Link to GPU Compare Chart](https://www.tomshardware.com/reviews/gpu-hierarchy,4388.html)
 
+---
+
+# Yeni platforma gecis
+**Mobo:** 1.5k
+**RAM_16gb:** 900SEK
+**CPU_Ryzen 5 9600X:** 3K
+**GPU:**
+**PSU:**
+**Case:**
+**SUM =>** ~5.4k
+
+---
+
+
+CPU_Ryzen 7 9700: 4k
+CPU_Ryzen 7 7700: 3.4k 
+CPU_Ryzen 5 7600X: 2.4k

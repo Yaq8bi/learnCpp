@@ -54,10 +54,38 @@
    ```cpp
    free();
    ```
----
 6. Pointer allocates how many bytes?
 - En sevdigim numara...
 
+## Last lecture with Faroch
+[Screenshots](https://discord.com/channels/1023897516141461514/1319594548871299092)
+1. Why Pointer?
+  - Does not create a copy of value unlike other types.
+  - important 
+  - not safe to convert 1 pointer type to another pointer type.
+2. Bu ne yapiyor?
+  - `.person_t *person{reinterpret cast<person_t *>(array)};`
+3. A pointer is an object.
+  - This indicates that we can have a double pointer.
+4. const pointer will lock the value, but not reassigning the address. const* infront of the first const to lock the adress aswell.
+```cpp
+  const int* const* ptr{&var};
+```
+5. R-Value expression:
+   - `int &&rref{2 * var + 9};`
+6. Type deduction:
+   - `auto var{10};
+7. Decltype:
+- `decltype(2*var) i;` : Whatever type of "i" is, make the type of (2*var) of "that" type that var "i" has.
+8. .
+```cpp
+  int var{10};
+
+  auto func = [=/*when locking||consting the int value or an ampersand '&' for dynamic value */, b = 7](){
+    var = 100;//would NOT work with ampersand '&'
+    sd::cout << var * b << std::endl;
+  }
+```
 
 ## To-Do
 
@@ -70,8 +98,29 @@ for (int(*rptr)[COLUMN] = mtrxArr; (rptr - mtrxArr) < ROW; rptr++)
     }
 ```
 - []
-
-
+---
 ### Tekrarla ve anla
 1. week50, Exercise 10.
    - Cok onemli gorunuyor. Bu field'ta pointerlar onemli, bu loopu kullan ve anlamaya calis.
+2. Exercise 14'te Bool ve compare_t olan fonksiyonlari pek anlamadim. Tekrarla ve anla!
+---
+<h1 style="color:blue; font-family:cursive; -webkit-text-stroke: 2px red;">C++</h1>
+
+#### Check if input it's number
+```cpp
+if(std::cin.fail()){
+  elem.age = -1;
+  std::cin.clear();
+  std::cin.ignore(std::numberic_limits<std::streamsize>::max(), '\n');
+}
+```
+
+#### Sleep in C++
+```cpp
+
+  #include <thread>//CPU thread funcs.
+  #include <chrono>//Miliseconds counter.
+
+   std::this_thread::sleep_for(std::chrono::milliseconds(200));
+```
+
