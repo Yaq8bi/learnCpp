@@ -6,16 +6,34 @@ Make another function to print the array to the output.
 Example: An array filled with random numbers: {9, 3, 8, 13, 5, 2, 6, 7, 1, 4}
 */
 #include <iostream>
+#include <cstdlib>
 
-void fillWithUniqueRandomNumber(int *arr){
+constexpr int MAX{99};
+constexpr int AMOUNT{9};
 
-
-
+void fillWithUniqueRandomNumber(int *ptrArray)
+{
+    for (int i = 0; i < AMOUNT; i++)
+    {
+        *(ptrArray + i) = rand() % (MAX + 1); // But this line works flowlessly?
+        (*ptrArray)[i] = rand() % (MAX + 1); // why is this line wrong(compiler gives error and doesn't compile?)
+    }
+}
+void printArray(int *ptrArray){
+    for (int i = 0; i < AMOUNT; i++)
+    {
+        std::cout << *(ptrArray + i);
+    }
+    std::cout << std::endl;
 }
 
-int main(){
+int main()
+{
+    srand(time(nullptr));
+    int numArray[AMOUNT];
 
-
+    fillWithUniqueRandomNumber(numArray);
+    printArray(numArray);
 
     return 0;
 }
