@@ -22,6 +22,12 @@
 **SUM =>** ~5.4k
 
 ---
+1. PS5 => 3k
+2. SD => 3k 
+3. UPGRADE.
+4. Sell DDR4 platform.
+5. Invest the profits to GPU.
+---
 
 
 CPU_Ryzen 7 9700: 4k
