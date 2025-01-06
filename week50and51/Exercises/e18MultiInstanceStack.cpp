@@ -110,7 +110,7 @@ void destroyStack(int **_stack) // double pointer, because the stack in main(arg
 {
     if (*_stack) // single pointer to the pointer in main.
     {
-        delete[] *_stack;
+        delete[] *_stack; // this delete is a C++ thing that deletes the memory allocated with new, but the brackets make it delete the array.
         *_stack = nullptr;
         std::cout << "\nThe stack is destroyed!" << std::endl;
         std::cout.flush();

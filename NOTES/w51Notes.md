@@ -124,3 +124,12 @@ if(std::cin.fail()){
    std::this_thread::sleep_for(std::chrono::milliseconds(200));
 ```
 
+### VECTOR
+```cpp
+#include <vector>
+
+std::vector<int> emptyVector(5); //a empty vector of int elements.
+std::vector<int> numVector = {1,2,3}; // Initialized with 3 integers.
+
+```
+1. Array gibi ama 
