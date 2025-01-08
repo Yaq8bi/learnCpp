@@ -6,7 +6,7 @@ class Point
     int y; // private by default
 
 public:
-    // Constructor, yani bu class'tan bir obje oluşturulduğunda bu fonksiyon çalışır.
+    // Constructor, yani bir obje oluşturulduğunda o objenin x ve y değerlerini set eder.
     Point(int _x, int _y) : x(_x), y(_y) {}
 
     void print() const
@@ -18,6 +18,8 @@ public:
 int main()
 {
     const Point p(1, 2); // Constructor fonksiyonu çalışır.
+    Point q;       //Simdi q objesinin x ve y değerleri sifir cunku constructor fonksiyonu kullanmadigimiz icin.
+
     p.print();
 
     return 0;
