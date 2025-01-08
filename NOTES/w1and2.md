@@ -13,8 +13,14 @@
 ```c++
 public:
 Point() = default; // generate the default constructor.
---
-Point(int _x = 0, int _y = 0) : x{_x}, y{_y} {} //ConstructorConstructor, yani bir obje oluşturulduğunda o objenin x ve y değerlerini set eder. 
+--- UNIFORM INITIALIZATION ---
+Point(int _x = 0, int _y = 0) : x{_x}, y{_y} {} //Constructor, yani bir obje oluşturulduğunda o objenin x ve y değerlerini set eder. 
+-- NON UNIFORM INITIALIZATION ---
+Point(int _x = 0, int _y = 0) {
+    x = _x;
+    y = _y;
+} 
+
 ```
 ### Copy Constructor
 - 
@@ -22,7 +28,7 @@ Point(int _x = 0, int _y = 0) : x{_x}, y{_y} {} //ConstructorConstructor, yani b
 ### Destructor
 - Used for cleaning.
 - Only one can exist.
-- Must be public?
+- Must be public.
 - Code:
   ```cpp
     ~className()
@@ -42,7 +48,19 @@ Point(int _x = 0, int _y = 0) : x{_x}, y{_y} {} //ConstructorConstructor, yani b
 - 1 instance.
 
 ### Private Members Access
-- 
+- .
+  
+### Inheritance
+1. If Derived class inherites Base class privately. 
+2. And an instance of Derived, is assigned to an instance of Base implicitly.
+3. It shall not work, Due to the inheritance being done privately.
+4. It should work if the casting is done explicitly.
+5. #### Example:
+```cpp
+ Derived d{10,20};
+ Base &b{d};
+ Derived &ref{reinterpret_cast<Deried &>(b)};
+```
 
 ## NOTES
 [] what is `class Point { int x{0} };`
