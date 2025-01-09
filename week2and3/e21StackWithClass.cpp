@@ -12,20 +12,20 @@ A function to clear a stack
 #include <cassert>
  
  
-constexpr int fixedSize{8};
+constexpr int fixedSize{8};//The define from C
 
 class Stack
 {
     int top{-1};
-    int *stack;
+    int stack[fixedSize]; // Use a fixed-size array instead of a pointer
 
 public:
-    Stack() : stack(new int[fixedSize]()) {}
+    Stack() : stack{} {} // Constructor, initialize the array to 0
 
     bool push(int _data)
     {
         bool status = false;
-        if (top < (fixedSize - 1))
+        if (top < (fixedSize - 1)) // If stack is less than MAX or Full
         {
             top++;
             status = true;
@@ -81,20 +81,10 @@ public:
         }
     }
 
-    ~Stack()
+    ~Stack()//Destrutor destroys the stack by setting all elements to 0
     {
-        if (stack)
-        {
-            delete[] stack;
-            stack = nullptr;
-            std::cout << "\nThe stack is destroyed!" << std::endl;
-            std::cout.flush();
-        }
-        else
-        {
-            std::cout << "The stack does NOT EXIST!" << std::endl;
-            std::cout.flush();
-        }
+        std::cout << "\nThe stack is destroyed!" << std::endl;
+        std::cout.flush();
     }
 };
 
@@ -102,6 +92,9 @@ int main()
 {
     Stack stack;
     stack.push(1);
+    stack.push(2);
+    stack.push(2);
+    stack.push(2);
     stack.push(2);
 
     stack.printAmount();

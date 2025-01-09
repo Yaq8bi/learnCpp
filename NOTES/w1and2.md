@@ -22,6 +22,16 @@ Point(int _x = 0, int _y = 0) {
 } 
 
 ```
+## How Does Constructor Work?
+
+In your example:
+```cpp
+/*Stack() is the constructor—it has the same name as the class.*/
+Stack() : stack{} {}
+/*: stack{} is initializer list syntax, which ensures that the stack array is zero-initialized (all elements are set to 0).*/
+top{-1} /*directly initializes the top variable to -1.*/
+```
+
 ### Copy Constructor
 - 
 
