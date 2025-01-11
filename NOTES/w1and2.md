@@ -31,10 +31,10 @@ Stack() : stack{} {}
 /*: stack{} is initializer list syntax, which ensures that the stack array is zero-initialized (all elements are set to 0).*/
 top{-1} /*directly initializes the top variable to -1.*/
 ```
-
+---
 ### Copy Constructor
 - 
-
+---
 ### Destructor
 - Used for cleaning.
 - Only one can exist.
@@ -46,26 +46,87 @@ top{-1} /*directly initializes the top variable to -1.*/
         std::cout << "Destructor called!" << std::endl;
     }
   ```
-
+---
 ### Alision
 1. what is this?
 2. `Point p{Point{1, 2}};`
-
+---
 ### Uniform Initialization?
-- Look it up and learn from GPT
-  
-### Singleton?
-- 1 instance.
+- ` Point(int parameterVarX, parameterVarY) : privateVarX{parameterVarX}, privateVarY{parameterVarY}`
+  ---
+# Singleton
+- There shall be only 1 instance: mnemonic/metaphorically similar to a manager, there is only 1 manager. We can access to the class functionality through the singleton object. 
+<h3 style="color: lightblue;">Example</h3>
+
+```cpp
+Point(int m, int n) : x{m}, y{n} {}
+Point(const Point &) = delete;
+```
+- `Point(const Point &) = delete;` ensures the singleton cannot be copied (no duplicates).
+
+### What is a Singleton inside its class?
+The line `Point(const Point &) = delete;` in C++ explicitly deletes the copy constructor of the Point class. This ensures that the compiler will not generate a default copy constructor, and any attempt to copy an instance of the class will result in a compile-time error.
+
+Here's a breakdown of why this ensures a single instance:
+
+1. Copy Constructor Overview:
+A copy constructor allows creating a new object as a copy of an existing object (e.g., Point p2 = p1;).
+If not explicitly defined, the compiler automatically provides a default copy constructor.
+<br>
+1. Deleting the Copy Constructor:
+By explicitly writing Point(const Point&) = delete;, you tell the compiler, "This operation is not allowed."
+This makes any code that tries to copy an instance of the Point class invalid, ensuring there can be no duplicate instances.
+<br>
+1. Singleton Context:
+In a singleton design pattern, we aim to ensure that only one instance of a class exists throughout the program.
+Preventing copying is a critical step because copies would undermine the singleton's guarantee of a single instance.
+<br>
+1. Enforcement:
+Attempting to copy an instance `(e.g., via Point p2 = p1;or Point p3(p1);)` will result in a compilation error, enforcing this restriction at compile time.
+</p>
+EXAMPLE:
+
+```cpp
+#include <iostream>
+
+class Point {
+public:
+    static Point& getInstance() {
+        static Point instance; // Single instance
+        return instance;
+    }
+
+    Point(const Point&) = delete; // No copying
+    Point& operator=(const Point&) = delete; // No assignment
+
+private:
+    Point() {} // Private constructor
+};
+
+int main() {
+    Point& p1 = Point::getInstance();
+    // Point p2 = p1; // Compile-time error
+    // Point p3(p1);  // Compile-time error
+
+    std::cout << "Single instance enforced!" << std::endl;
+    return 0;
+}
+
+```
+
+---
 
 ### Private Members Access
-- .
-  
+1. In a class, the public section can access private variables.
+2. Only a const object can use a const function.
+  ---
 ### Inheritance
 1. If Derived class inherites Base class privately. 
 2. And an instance of Derived, is assigned to an instance of Base implicitly.
 3. It shall not work, Due to the inheritance being done privately.
 4. It should work if the casting is done explicitly.
-5. #### Example:
+---
+#### Example:
 ```cpp
  Derived d{10,20};
  Base &b{d};
@@ -74,50 +135,7 @@ top{-1} /*directly initializes the top variable to -1.*/
 
 ## NOTES
 [] what is `class Point { int x{0} };`
-[] 
+[] what is a singleton?
 
 
 # Code example:
-```cpp
-#include <iostream>
-
-class Point
-{
-    int x, y;
-
-public:
-    Point(int _x, int _y) : x(_x), y(_y) {} // Constructor
-
-    int getX() const { return x; } 
-    int getY() const { return y; }
-    
-    static Point &handle(int _x, int _y)//Burası static bir fonksiyon, a static member belongs to the class ITSELF!
-    {
-        static Point p(_x, _y);
-        return p;
-    }
-
-    void print()
-    {
-        std::cout << "x: " << x << ", y: " << y << std::endl;
-    }
-    friend bool isEqual(const Point &p, const Point &q);
-};
-
-bool isEqual(const Point &p, const Point &q)
-{
-    return ((p.x == q.x) && (p.y == q.y));
-}
-
-int main()
-{
-    Point p1(1, 2), q(1, 2);
-
-    std::cout << (isEqual(p1, q) ? "Equal" : "Not equal") << std::endl;
-
-    Point::handle(3, 4).print();
-
-    return 0;
-}
-
-```
