@@ -17,6 +17,8 @@ public:
     bool isFull() const;
     bool isEmpty() const;
     void clear();
+
+    //~Stack() { std::cout << "Stack is destroyed." << std::endl; }// Is only needed when we have dynamic memory allocation. which in this case we don't have.
     
     private:
     int top{-1};

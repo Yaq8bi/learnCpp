@@ -8,28 +8,43 @@ A function to clear the stack
 */
 #include <iostream>
 #include <cassert>
+#include <thread>
+#include <chrono>
+
 #include "SingletonStack.hpp"
+
+//  int SingletonStack::singleStack[];
 
 int main()
 {
-    SingletonStack &stack1 = SingletonStack::accessInstance(); // Creating an instance of the SingletonStack class.
-    SingletonStack &stack2 = SingletonStack::accessInstance(); // Same instance as stack1.
+    int temp{0};
+    // Creating an instance of the SingletonStack class.
+    SingletonStack &stack1 = SingletonStack::accessInstance();
+    // Same instance as stack1.
+    SingletonStack &stack2 = SingletonStack::accessInstance();
+    assert(&stack1 == &stack2);//to check both is refereing to the same instance.
 
-    SingletonStack::printAmount();
+    stack1.printAmount();
+    assert(stack2.push(1) == true);
+    assert(stack1.push(2) == true);
+    stack1.push(3);
 
-    stack1.push(5);
-    assert(stack1.push(5) == true);
-    stack1.push(6);
-    stack1.push(7);
+    stack1.printAmount();
+    std::cout << "\vStarting the popping now!\v" << std::endl;
 
-    stack1.pop();
-    assert(stack.pop() == true);
-    stack1.pop();
-    stack1.pop();
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+
+    stack2.pop(temp);
+    assert(temp == 3);
+    stack1.pop(temp);
+    assert(temp == 2);
+    stack1.pop(temp);
+    assert(temp == 1);
 
     stack1.clear();
 
-    stack1.
+    stack1.printAmount();
 
     return 0;
 }
+
