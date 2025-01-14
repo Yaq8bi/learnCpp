@@ -22,7 +22,7 @@ class Stack
     };
 
     node_t *top{nullptr}; // a pointer to the top of the stack.
-    size_t elements{0};  // Number of elements in the stack.
+    size_t elements{0};   // Number of elements in the stack.
 
 public:
     Stack() = default;                        // Default constructor
@@ -34,14 +34,26 @@ public:
         bool status{false};
 
         node_t *node = new (std::nothrow) /*return nullptr if, new doesn't allocate memory*/ node_t(_data, top); // Create a new node and assign the value to the data field and the top pointer to the next field.
-/*node_t(struct)'yi, hafizada bir *node(pointer) olarak yapiyorum. Hafizada"new" ile yapiyorum, [std::nothrow, returns a nullptr if new fails]*/
-        if (node_t != nullptr){
-            status = true;
+                                                                                                                 /*node_t(struct)'yi, hafizada bir *node(pointer) olarak yapiyorum. Hafizada"new" ile yapiyorum, [std::nothrow, returns a nullptr if new fails]*/
+        if (node_t != nullptr)
+        {
+            status = true; //
             elements++;
-            top = node;
+            top = node; // Top point to the created node.
         }
 
         return status;
+    }
+
+    bool pop(int &elem)
+    {
+        bool status{false};
+
+        if (top != nullptr)
+        {
+            status = true;
+            elem = top->data
+        }
     }
 
     ~Stack() { clear(); } // Destructor
