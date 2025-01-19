@@ -62,11 +62,11 @@ public:
         if (top != nullptr)
         {
             status = true;
-            elem = top->data;//pass the data to the variable, that is passed by reference.
-            node_t *temp{top};// initialize temp node, as a copy of TOP node.
-            top = top->next;//top now is the next address?
-            delete temp;//Temp got deleted, but why?
-            elems_num--;//
+            elem = top->data;
+            node_t *temp{top};
+            top = top->next;
+            delete temp;
+            elems_num--;
         }
 
         return status;
@@ -85,7 +85,6 @@ public:
             top = top->next;
             delete temp;
         }
-
         elems_num = 0;
     }
 

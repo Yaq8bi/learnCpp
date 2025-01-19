@@ -9,8 +9,10 @@ A function to pop an element from a stack.
 A function to clear a stack
 Overload the insertion operator to print a stack to the terminal
 */
+#ifndef STACK_H
+#define STACK_H
+
 #include <iostream>
-#include <cassert>
 
 class Stack
 {
@@ -35,7 +37,7 @@ public:
 
         node_t *node = new (std::nothrow) /*return nullptr if, new doesn't allocate memory*/ node_t(_data, top); // Create a new node and assign the value to the data field and the top pointer to the next field.
                                                                                                                  /*node_t(struct)'yi, hafizada bir *node(pointer) olarak yapiyorum. Hafizada"new" ile yapiyorum, [std::nothrow, returns a nullptr if new fails]*/
-        if (node_t != nullptr)
+        if (node != nullptr)
         {
             status = true; //
             elements++;
@@ -45,22 +47,52 @@ public:
         return status;
     }
 
-    bool pop(int &elem)
+    bool pop(int &_elem)
     {
         bool status{false};
 
         if (top != nullptr)
         {
             status = true;
-            elem = top->data
+            _elem = top->data; // pass the data to the variable, that is passed by reference.
+            node_t *temp{top}; // initialize temp node, as a copy of TOP node.
+            top = top->next;   // top now is the next address?
+            delete temp;       // Temp got deleted, but why?
+            elements--;
         }
+        return status;
+    }
+
+    size_t availableElements(void)
+    {
+        return elements;
+    }
+
+    void clear(void)
+    {
+        while (top != nullptr)
+        { /*temp kendini fida veren bir asker, top addresine, memory'de point ediyor.
+            top->next'i top'a geri atiyoruz. sonrada Temp'i siliyoruz hafizadan.*/
+            node_t *temp{top};
+            top = top->next;
+            delete temp;
+        }
+        elements = 0;
+    }
+
+    friend std::ostream &operator<<(std::ostream &out, const Stack &stack)
+    {
+        node_t *cursor{stack.top};
+
+        while (cursor != nullptr)
+        {
+            out << cursor->data << "\t";
+            cursor = cursor->next;
+        }
+        return out;
     }
 
     ~Stack() { clear(); } // Destructor
 };
 
-int main()
-{
-
-    return 0;
-}
+#endif // STACK_H
