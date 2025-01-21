@@ -73,7 +73,7 @@ public:
         while (top != nullptr)
         { /*temp kendini fida veren bir asker, top addresine, memory'de point ediyor.
             top->next'i top'a geri atiyoruz. sonrada Temp'i siliyoruz hafizadan.*/
-            node_t *temp{top};
+            node_t *temp{top};//we need temp to delete the top node. Because we need to delete the top node before we move the top pointer to the next node.
             top = top->next;
             delete temp;
         }
