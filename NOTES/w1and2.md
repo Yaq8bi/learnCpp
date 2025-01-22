@@ -126,6 +126,10 @@ int main() {
 3. It shall not work, Due to the inheritance being done privately.
 4. It should work if the casting is done explicitly.
 ---
+
+### Templates
+1. Generic programing.
+
 #### Example:
 ```cpp
  Derived d{10,20};
@@ -133,9 +137,31 @@ int main() {
  Derived &ref{reinterpret_cast<Deried &>(b)};
 ```
 
-## NOTES
+## NOTES | Look up
 [] what is `class Point { int x{0} };`
 [] what is a singleton?
+[] Virtual & Override
+[] Dynamic Polymorphism[pdf'i oku]: 1. Size of program increased. 2. Slow(Pointers must be dereferenced after... ?).
+[] Why do we need virtual function? Pure virtual function, prototype in class: defined globally.
+[] 
 
+```cpp
+class Animal{
+    std::string name;
+    protected:
+    Animal(const std::string &_name):name{_name}{}
+};
+class Cat : Animal
+{
+    public:
+    Cat(const sd::string  _name) : Animal{_name}{}
+
+}
+
+int main(){
+Cat c;
+Animal *ptr{&c};
+}
+```
 
 # Code example:
