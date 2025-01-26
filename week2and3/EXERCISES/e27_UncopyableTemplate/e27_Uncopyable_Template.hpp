@@ -1,7 +1,7 @@
 #ifndef E27_UNCOPYABLE_TEMPLATE_HPP
 #define E27_UNCOPYABLE_TEMPLATE_HPP
 
-#include <iostream>
+#include <iostream> 
 #include <new>
 #include <cstddef>
 

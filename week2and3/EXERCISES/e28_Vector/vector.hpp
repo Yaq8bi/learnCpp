@@ -4,8 +4,8 @@
 3. Sort the vector using std::sort in ascending order (from smallest to largest)
 4. Usinng an iterator print the elements in the vector to the terminal.
 */
-#ifndef  VECTOR.HPP
-#define VECTOR.HPP
+#ifndef  VECTOR_HPP
+#define VECTOR_HPP
 
 #include <iostream>
 // vector and Ascend
@@ -50,4 +50,4 @@ static bool isNonPrime(int num)
     return status;
 }
 
-#endif  //VECTOR.HPP
+#endif  //VECTOR_HPP
