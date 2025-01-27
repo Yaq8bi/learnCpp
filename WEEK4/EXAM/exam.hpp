@@ -1,3 +1,13 @@
+/**
+ * @file exam.hpp
+ * @author Ahmed Sami (Ahmetbugatti@gmail.com)
+ * @brief Circular buffer class with functionalities of write, read, clear.
+ * @version 0.1
+ * @date 2025-01-27
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
 #ifndef EXAM_HPP
 #define EXAM_HPP
 
