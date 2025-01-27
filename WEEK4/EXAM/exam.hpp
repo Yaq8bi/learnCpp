@@ -2,148 +2,135 @@
 #define EXAM_HPP
 
 #include <iostream>
-#include <string>
+#include <stdexcept>
 
+
+/**
+ * @brief class for creating  a buffer, reading from it, writing into it.
+ * 
+ * @tparam T 
+ * @tparam N Size of the aray.
+ */
 template <typename T, size_t N>
 class cirBuffer
 {
+    static_assert(N >= 4, "Buffer size must be at least 4!");
+
 private:
     T Buffer[N]{0};
-    int head{-1};
-    int tail{-1};
-    size_t elemAmount{0};
+    int head{0};
+    int tail{0};
+    size_t elemAmount{0}; // tracker
 
 public:
+    // cirBuffer() : head(0), tail(0), elemAmount(0) {}
     cirBuffer() = default;
     cirBuffer(const cirBuffer &) = delete;
     cirBuffer &operator=(const cirBuffer &) = delete;
 
+/**
+ * @brief Writes into the array, where the tail is.
+ * 
+ * @param _data The value that is written into the buffer.
+ * @return true If process is successful.
+ * @return false If process is failed.
+ */
     bool write(const T &_data)
     {
-        N - 1;
-        if (N < 4)
-        {
-            printf("\v\t**N is less than 4**\n");
-            try
-            {
-                checkError();
-            }
-            catch (const std::exception &e)
-            {
-                std::cerr << e.what() << '\n';
-            }
-        }
-
         bool status{false};
 
-        if (Buffer != nullptr)
+        if (elemAmount == N)
         {
-            if (tail == -1)
-            {
-                tail = 0;
-                head = 0;
-            }
-
-            if (tail == N)
-            {
-                Buffer[tail] = _data;
-                status = true;
-                elemAmount++;
-
-                tail = 0;
-            }
-            else
-            {
-                Buffer[tail] = _data;
-                status = true;
-                elemAmount++;
-
-                tail++;
-            }
+            head = (head + 1) % N; // Overwrite the oldest data
         }
+        else
+        {
+            elemAmount++;
+        }
+
+        Buffer[tail] = _data;
+        tail = (tail + 1) % N; // Move tail to the next position
+
         return status;
     }
 
+/**
+ * @brief Read a data from the buffer.
+ * 
+ * @param _data The number that is going to be assigned the value that the head is pointing to(oldest data).
+ * @return true If the process is succesful.
+ * @return false If the process is fail.
+ */
     bool read(T &_data)
     {
         bool status{false};
 
-        if (head != -1)
+        if (elemAmount == 0)
         {
-            _data = Buffer[head];
-            Buffer[head] = 0;
-            status = true;
-            head++;
-            elemAmount--;
+            std::cerr << "Buffer is empty." << std::endl;
+            status = false;
         }
-        else if (head == N)
-        {
-            _data = Buffer[head];
-            Buffer[head] = 0;
-            status = true;
-            head = 0;
-            elemAmount--;
-        }
-        else if (head == -1 && tail == -1)
-        {
-            std::cout << "You must write a data in to the buffer, before you can read from the buffer!" << std::endl;
-        }
+
+        _data = Buffer[head];
+        head = (head + 1) % N; // head goes to the right one step.
+        elemAmount--;
+        status = true;
 
         return status;
     }
 
+/**
+ * @brief Clears the circular buffer and returns the status.
+ * 
+ * @return true Return true if clearing is succesful.
+ */
     bool clear()
     {
-        bool status{false};
-        if (isFull())
+        for (size_t i = 0; i < N; i++)
         {
-            for (int i = 0; i < N; i++)
-            {
-                Buffer[i] = 0;
-            }
-            status = true;
+            Buffer[i] = T();
         }
-
-        return status;
+        head = 0;
+        tail = 0;
+        elemAmount = 0;
+        return true;
     }
 
-    bool isFull()
+/**
+ * @brief If the buffer is full. 
+ * 
+ * @return true  
+ */
+    bool isFull() const
     {
-        bool status{false};
-
-        if (Buffer[N - 1] != 0)
-        {
-            status = true;
-        }
-
-        return status;
+        return elemAmount == N;
     }
 
-    int dataAmount()
+/**
+ * @brief Returns the amount of elements in the buffer.
+ * 
+ * @return size_t 
+ */
+    size_t dataAmount()
     {
-        int tempNum{0};
-        for (int &i : Buffer)
-        {
-            if (i != 0)
-            {
-                tempNum++;
-            }
-        }
-        return tempNum;
+        return elemAmount;
     }
 
-    // friend operator<<(std::ostream &_cout, cirBuffer &_Buffer)
-
-    void checkError()
+/**
+ * @brief The operator oveloding, to achieve the ability to easily print the contents of th ebuffer.
+ * 
+ * @param _cout 
+ * @param _Buffer 
+ * @return std::ostream& 
+ */
+    friend std::ostream &operator<<(std::ostream &_cout, const cirBuffer &_Buffer)
     {
-        throw 404;
+        for (size_t i = 0; i < _Buffer.elemAmount; i++)
+        {
+            _cout << _Buffer.Buffer[(_Buffer.head + i) % N] << " ";
+        }
+        return _cout;
     }
 };
-
-// void operator<<(std::ostream &_cout, cirBuffer &_Buffer)
-//     {
-//         _cout << _cirBuffer._Buffer[0] << std::endl;
-//     }
-
 
 #endif // EXAM_HPP

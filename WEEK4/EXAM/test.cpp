@@ -8,24 +8,40 @@ int main()
 
     int numHolder{0};
 
+    std::cout << "Testing write and overwrite behavior..." << std::endl;
     cir.write(7);
     cir.write(9);
     cir.write(8);
     cir.write(2);
     assert(cir.isFull());
-    cir.write(7);
-    cir.write(9);
+    assert(cir.dataAmount() == 4);
+
+    cir.write(10); // Overwrites the oldest data (7 -> replaced by 10)
+    cir.write(20); // Overwrites the next oldest data (9 -> replaced by 20)
 
     cir.read(numHolder);
+    assert(numHolder == 8); // Oldest remaining data after two overwrites
     cir.read(numHolder);
+    assert(numHolder == 2); // Next oldest remaining data
+    std::cout << "Write and overwrite tests passed." << std::endl;
+    std::cout << "Buffer contents: " << cir << std::endl;
 
-    std::cout << "Number of elements stored in buffer: " << cir.dataAmount() << std::endl;
+    std::cout << "Testing clear() functionality..." << std::endl;
     cir.clear();
-    
-    // std::cout << cir;
-
     assert(!cir.isFull());
-    std::cout << "all tests passed\v" << std::endl;
+    assert(cir.dataAmount() == 0);
+    bool status = cir.read(numHolder);
+    
+    std::cout << "Clear tests passed." << std::endl;
+
+    std::cout << "Testing operator<<..." << std::endl;
+    cir.write(5);
+    cir.write(15);
+    cir.write(25);
+    std::cout << "Buffer contents: " << cir << std::endl;
+    std::cout << "Operator<< tests passed." << std::endl;
+
+    std::cout << "All tests passed!" << std::endl;
 
     return 0;
 }
