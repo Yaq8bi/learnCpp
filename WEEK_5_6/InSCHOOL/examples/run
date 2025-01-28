@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+clear && mkdir -p build
+
+g++ -c fizzbuzz/fizzbuzz.cpp -I./fizzbuzz -o build/fizzbuzz.o && echo "build/fizzbuzz.o generated"
+
+g++ -c test.cpp -I./fizzbuzz -o build/test.o && echo "build/test.o generated"
+
+g++ -c main.cpp -I./fizzbuzz -o build/main.o && echo "build/main.o generated"
+
+g++ build/fizzbuzz.o build/test.o -lunity -o build/test
+
+g++ build/fizzbuzz.o build/main.o -o build/main
+
+echo "" && ./build/test

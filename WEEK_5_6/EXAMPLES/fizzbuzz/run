@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+clear && rm -rf build
+mkdir build && cd build
+
+g++ -c ../fizzbuzz/fizzbuzz.cpp # fizzbuzz.o
+g++ -c ../src/main.cpp -I../fizzbuzz # main.o
+g++ fizzbuzz.o main.o -o main && ./main $1
+
+g++ -c ../test/test.cpp -I../fizzbuzz # test.o
+g++ fizzbuzz.o test.o -o test && ./test
+
+

@@ -16,17 +16,21 @@ struct YoutubeChannel
     }
 };
 // parameter of ostream(to access the cout)
-void operator<<(std::ostream &_cout, YoutubeChannel &_YoutubeChannel)
+std::ostream& operator<<(std::ostream &_cout, YoutubeChannel &_YoutubeChannel)
 {
     _cout << "Name: " << _YoutubeChannel.name << std::endl;
     _cout << "Subscribers: " << _YoutubeChannel.subscribers << std::endl;
+    return _cout;
 }
 
 int main()
 {
     // This is where the constructor becomes useful. Initilized using the constructor.
     YoutubeChannel yt1 = YoutubeChannel("Yaq8bi", 999000);
-    std::cout << yt1;
+    YoutubeChannel yt2 = YoutubeChannel("BeautyCode", 15000);
+
+    std::cout << yt1 << yt2 << std::endl;
+    // operator<<(std::cout, yt1);
 
     return 0;
 }

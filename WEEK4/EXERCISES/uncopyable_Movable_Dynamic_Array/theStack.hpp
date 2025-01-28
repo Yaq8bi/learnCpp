@@ -8,13 +8,13 @@ A function to pop an element from a stack.
 A function to clear a stack
 Use exception handling, test the class using assertions, ensure that the dynamic memory is managed properly and the class is movable.
 */
-// #ifndef //STACK_H
-// #define  //STACK_H
+ #ifndef STACK_H
+ #define  STACK_H
 
-#include <cstdef>
-#include <cstexcept>
+#include <cstddef>
+#include <stdexcept>
 
-template<typename T>
+template <typename T>
 
 class theStack
 {
@@ -22,20 +22,92 @@ private:
     int top{-1};
     int size{0};
     T *array{nullptr};
-    static constexpr int SIZE_MIN{4};
+    static constexpr int MIN{4};
+
 public:
-    theStack();
-    ~theStack();
+    theStack(const theStack &) = delete;            // uncopyable
+    theStack &operator=(const theStack &) = delete; // unnasignable
+
+    theStack(int _size) : size{_size} // constructor
+    {
+
+        if (size < MIN)
+        {
+            throw std::invalid_argument{"Invalid Size"};
+        }
+        array = new T[size]{};
+    }
+    // stack  will not own the resources.
+    // no exccept meaning do not return an exception.
+    theStack(theStack &&_stack) noexcept : top{_stack.top}, size{_stack.size}, array{_stack.array}
+    {
+        _stack.array = nullptr;
+        _stack.top = -1;
+        _stack.size = 0;
+    }
+
+    theStack &operator=(theStack &&_stack) noexcept
+    {
+        if (this != &_stack)
+        {
+            delete array; // Realease resources
+
+            // moving ownership back
+            top = _stack.top;
+            size = _stack.size;
+            array = _stack.array;
+
+            // queue will  not own the resources
+            _stack.top = -1;
+            _stack.size = 0;
+            _stack.array = nullptr;
+        }
+        return *this;
+    }
+
+    bool push(const T &_data) noexcept
+    {
+        bool status{false};
+        if (top < (size - 1))
+        {
+            top++;
+            status = true;
+            array[top] = _data;
+        }
+        return status;
+    }
+
+    bool pop(T &_data) noexcept
+    {
+        bool status{false};
+        if (top > -1)
+        {
+            _data = array[top];
+            status = true;
+            top--;
+        }
+        return status;
+    }
+
+    int capacity(void) noexcept
+    {
+        return size;
+    }
+
+    int available(void) noexcept
+    {
+        return (top + 1);
+    }
+
+    void clear(void) noexcept
+    {
+        top = -1;
+    }
+
+    ~theStack()
+    {
+        delete array;
+    }
 };
 
-theStack::theStack(/* args */)
-{
-}
-
-theStack::~theStack()
-{
-}
-
-
-
-// #endif // STACK_H
+ #endif // STACK_H
