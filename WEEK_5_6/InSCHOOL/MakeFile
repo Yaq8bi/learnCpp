@@ -1,0 +1,32 @@
+	# all: build/app
+	# echo ""
+	# this is a comment.
+
+	CC = g++
+	BUILD_DIR = build
+
+	.DEFAULT_GOAL := run
+
+	SOURCES: main.cpp data.cpp display.cpp
+	OBJECTS: $(SOUCES:%.cpp=$(BUILD_DIR)/%.o)
+
+	run: $(BUILD_DIR) $(BUILD_DIR)/app
+		 
+		./$(BUILD_DIR)/app
+
+	.build:
+        mkdir -p $(BUILD_DIR)/
+
+	$(BUILD_DIR)/app: .$(BUILD_DIR) $(BUILD_DIR)/main.o $(BUILD_DIR)/data.o $(BUILD_DIR)/display.o
+    	$(CC) $(BUILD_DIR)/main.o $(BUILD_DIR)/data.o $(BUILD_DIR)/display.o -o $(BUILD_DIR)/app
+
+	$(BUILD_DIR)/main.o: main.cpp data.h display.h
+		$(CC) -c main.cpp 0o $(BUILD_DIR)/main.o
+	
+	$(BUILD_DIR)/data.o: data.cpp data.h
+		$(CC) -c data.cpp -o $(BUILD_DIR)/data.o
+
+	clean: 
+		# cd $(BUILD_DIR); rm -f *.o [or the line below, both works]
+		cd $(BUILD_DIR) \ rm -f *.o 
+	.PHONY: clean .$(BUILD_DIR) run
