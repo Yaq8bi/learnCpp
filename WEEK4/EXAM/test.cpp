@@ -9,7 +9,8 @@ int main()
     int numHolder{0};
 
     std::cout << "Testing write and overwrite behavior..." << std::endl;
-    cir.write(7);
+    assert(cir.write(7) == true);
+
     cir.write(9);
     cir.write(8);
     cir.write(2);
@@ -24,6 +25,7 @@ int main()
     assert(numHolder == 8); // oldest data, after 2 overwrite, so the head moved twice so that it will not point to the newly written data.
     cir.read(numHolder);
     assert(numHolder == 2);
+
     std::cout << "Write and overwrite tests passed." << std::endl;
     std::cout << "Buffer contents: " << cir << std::endl;
 

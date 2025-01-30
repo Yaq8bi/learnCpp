@@ -1,32 +1,44 @@
-	# all: build/app
-	# echo ""
-	# this is a comment.
+#Variables
+COMPILER = g++
+BUILD_DIR = build
 
-	CC = g++
-	BUILD_DIR = build
+#*use [%] to search and apply.
+SOURCE = main.o data.o display.o
+OBJECT = $(SOURCE:%.o=$(BUILD_DIR)/%.o)
 
-	.DEFAULT_GOAL := run
+#*autorun
+.DEFAULT_GOAL:=run
 
-	SOURCES: main.cpp data.cpp display.cpp
-	OBJECTS: $(SOUCES:%.cpp=$(BUILD_DIR)/%.o)
+#[filename]: [list_of_files_look_for_changes]
+#[tab_4_spaces][commands_upon_change]
+#*commands are executed per line on their own bash session.
 
-	run: $(BUILD_DIR) $(BUILD_DIR)/app
-		 
-		./$(BUILD_DIR)/app
+$(BUILD_DIR)/app: $(OBJECT)
+        $(COMPILER) $^ -o $(BUILD_DIR)/app
 
-	.build:
+$(BUILD_DIR)/main.o: main.cpp data.h display.h
+        $(COMPILER) -c main.cpp -o $(BUILD_DIR)/main.o
+
+$(BUILD_DIR)/data.o: data.cpp data.h
+        $(COMPILER) -c data.cpp -o $(BUILD_DIR)/data.o
+
+$(BUILD_DIR)/display.o: display.cpp display.h
+        $(COMPILER) -c display.cpp -o $(BUILD_DIR)/display.o
+
+run: $(BUILD_DIR)/app
+        $(BUILD_DIR)/app
+
+.build:
         mkdir -p $(BUILD_DIR)/
 
-	$(BUILD_DIR)/app: .$(BUILD_DIR) $(BUILD_DIR)/main.o $(BUILD_DIR)/data.o $(BUILD_DIR)/display.o
-    	$(CC) $(BUILD_DIR)/main.o $(BUILD_DIR)/data.o $(BUILD_DIR)/display.o -o $(BUILD_DIR)/app
+clean:
+        rm -f ./$(BUILD_DIR)/*.o
 
-	$(BUILD_DIR)/main.o: main.cpp data.h display.h
-		$(CC) -c main.cpp 0o $(BUILD_DIR)/main.o
-	
-	$(BUILD_DIR)/data.o: data.cpp data.h
-		$(CC) -c data.cpp -o $(BUILD_DIR)/data.o
+#*use [\] for line breaks
+#*use [@] for hiding console prints.
+test:
+    @echo "nah id \
+    win"
 
-	clean: 
-		# cd $(BUILD_DIR); rm -f *.o [or the line below, both works]
-		cd $(BUILD_DIR) \ rm -f *.o 
-	.PHONY: clean .$(BUILD_DIR) run
+#*[.PHONY] allows you to call the variables/clauses directly. E.g: make clean
+.PHONY: clean test
