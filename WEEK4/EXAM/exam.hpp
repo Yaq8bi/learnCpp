@@ -12,7 +12,6 @@
 #define EXAM_HPP
 
 #include <iostream>
-#include <stdexcept>
 
 /**
  * @brief class for creating  a buffer, reading from it, writing into it.
@@ -20,18 +19,20 @@
  * @tparam T
  * @tparam N Size of the aray.
  */
-template <typename T, size_t N, typename = std::enable_if<std::is_aritmetic_v<T>> class cirBuffer
+template <typename T, size_t N>
+class cirBuffer
 {
 private:
     static_assert(N >= 4, "Buffer size must be at least 4!");
 
     T Buffer[N];
-    int head;
-    int tail;
-    size_t elemAmount;
+    int head{0};
+    int tail{0};
+    static constexpr size_t limit{N};
+    size_t elemAmount{0};
 
 public:
-    cirBuffer() : head{0}, tail{0}, elemAmount{0} {};
+    cirBuffer() = default;
     cirBuffer(const cirBuffer &) = delete;
     cirBuffer &operator=(const cirBuffer &) = delete;
 
@@ -46,24 +47,33 @@ public:
     {
         bool status{true};
 
-        if (isFull())
+        Buffer[tail] = _data; // write _data into tail position.
+
+        if (elemAmount <= limit - 1)
         {
-            head = (head + 1) % N; // Overwrite oldest data.
-            
+            elemAmount++; // element coutner goes up if its less than the number of elements.
+        }
+
+        // TAIL
+        if (tail != limit - 1)
+        {
+            tail++; // tail moves right.
         }
         else
         {
-            elemAmount++; // If Buffer is not full, this conditional statement ends with this increment. Below the assignment will happen.
+            tail = 0;
         }
 
-        Buffer[tail] = _data;
-        tail = (tail + 1) % N; // move tail to next, where it will write to on next usage.
-
-        if (Buffer[tail] != _data) // Ceck to see if the assignment is succesful.
+        // HEAD
+        if (head != limit - 1) // if head is not at last stop => 0,1,2,3(4 total)
         {
-            status = false;
+            head++; // move head.
         }
-        
+        else
+        {
+            head = 0; // Put head back to begining position.
+        }
+
         return status;
     }
 
@@ -81,15 +91,13 @@ public:
         if (elemAmount == 0)
         {
             std::cerr << "Buffer is empty." << std::endl;
-            status = false;
         }
         else
         {
-            _data = Buffer[head];
-            head = (head + 1) % N; // head goes to the right one step.
-            elemAmount--;
+            _data = Buffer[head]; // head position value copied into _data.
             status = true;
         }
+
         return status;
     }
 
@@ -100,9 +108,9 @@ public:
      */
     bool clear()
     {
-        for (size_t i = 0; i < N; i++)
+        for (size_t i = 0; i < limit; i++)
         {
-            Buffer[i] = T();
+            Buffer[i] = 0;
         }
         head = 0;
         tail = 0;
@@ -115,9 +123,9 @@ public:
      *
      * @return true
      */
-    bool isFull() const
+    bool isFull()
     {
-        return elemAmount == N;
+        return elemAmount >= limit - 1;
     }
 
     /**
@@ -131,7 +139,30 @@ public:
     }
 
     /**
-     * @brief The operator oveloding, to achieve the ability to easily print the contents of th ebuffer.
+     * @brief Template function that works with arithmetic numbers, returns the average of elements in the circular buffer.
+     *
+     * @tparam Z
+     * @tparam typename
+     * @return double
+     */
+    template <typename Z, typename = std::enable_if_t<std::is_arithmetic_v<Z>>>
+    double averageBuff()
+    {
+        double result{0.0};
+        double tempNum{0}; // temporary number to add up the numbers.
+
+        for (size_t i = 0; i < elemAmount; i++)
+        {
+            tempNum += Buffer[i];
+        }
+
+        result = tempNum / static_cast<double>(elemAmount); // divide them by the amount of elements, cast to double.
+
+        return result;
+    }
+
+    /**
+     * @brief The operator oveloding, to achieve the ability to easily print the contents of the circular buffer.
      *
      * @param _cout
      * @param _Buffer
@@ -139,9 +170,9 @@ public:
      */
     friend std::ostream &operator<<(std::ostream &_cout, const cirBuffer &_Buffer)
     {
-        for (size_t i = 0; i < _Buffer.elemAmount; i++)
+        for (int i = 0; i <= _Buffer.elemAmount - 1; i++)
         {
-            _cout << _Buffer.Buffer[(_Buffer.head + i) % N] << " ";
+            _cout << _Buffer.Buffer[i] << " ";
         }
         return _cout;
     }
