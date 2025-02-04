@@ -11,5 +11,8 @@ FetchContent_MakeAvailable(googletest)
 
 #https://github.com/google/googletest
 
-add_executable(test test.cpp)
-target_link_libraries(test PRIVATE gtest gtest_main)
+add_executable(testGoogletest testGoogletest.cpp)
+target_link_libraries(testGoogletest PRIVATE gtest gtest_main)
+
+enable_testing()
+add_test(NAME run_example COMMAND run_example)
