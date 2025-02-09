@@ -49,8 +49,9 @@ target_link_directories(test PRIVATE )
    ```
 5. Extracts data from a string: `std::sscanf(date.c_str(), "%d-%d-%d", &year, &month, &day);`
 
-## INTERFACE || Runtime Substitution
+# INTERFACE || Runtime Substitution
 - Is a class that includes purely virtual functions: For purposes of testing and production.
+### gMock || Important
 
 ---
 # ONEMLI - Bu seviyede olmaliyim.
