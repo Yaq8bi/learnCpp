@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.22)
+cmake_minimum_required(VERSION 3.22.1)
 
-set(PROJECT_NAME exercise-3)
+set(PROJECT_NAME stack)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -8,8 +8,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 add_compile_options(-Wall -Wextra -Wpedantic)
 
 project(${PROJECT_NAME} VERSION 1.0
-                        DESCRIPTION "Exercise 3"
-                        HOMEPAGE_URL "ya.itslearning.com"
+                        DESCRIPTION "Stack"
                         LANGUAGES CXX)
 
 #include FetchContent to be able to download GoogleTest code.
@@ -25,8 +24,5 @@ FetchContent_Declare(
 #Download or check that googletest is downloaded:
 FetchContent_MakeAvailable(googletest)
 
-add_executable(greet_test greet.cpp test.cpp)
-target_link_libraries(greet_test PRIVATE gtest_main)
-
-enable_testing()
-add_test(NAME greet COMMAND greet_test)
+add_executable(test test.cpp)
+target_link_libraries(test PRIVATE gtest_main gmock_main)

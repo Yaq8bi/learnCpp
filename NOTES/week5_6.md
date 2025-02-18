@@ -3,7 +3,7 @@
 - Stop update notifier
 1.  `sudo nano etc/update-manager/release-upgrades`
 2.  change last line to `=never`
-
+=
 ---
 ### What does it do
 - Manage resources.
