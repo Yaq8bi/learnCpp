@@ -1,0 +1,20 @@
+all: .mkbuild build/test
+	@echo "=> clean: "
+	@echo "=> run"
+	@echo "=> build"
+
+build/test: test.cpp queue.h
+	g++ test.cpp -lgtest -lgtest_main -o build/test
+
+run: .mkbuild build/test
+	@echo "running test"
+	./build/test
+
+.mkbuild: 
+	@mkdir -p build
+
+clean:
+	@rm -rf build \
+	echo "Cleaned"
+
+.PHONY: all .mkbuild clean run
