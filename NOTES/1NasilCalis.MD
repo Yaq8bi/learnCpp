@@ -1,0 +1,2 @@
+- Examples klasorundeki example kodlari oku, anla, ve kendince yaz.
+- 

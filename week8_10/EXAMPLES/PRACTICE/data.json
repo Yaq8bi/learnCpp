@@ -1,0 +1,8 @@
+{
+    "id":"0x100",
+    "persons":[
+        {"name":"Ahmet", "length":187, "mbti":"INFJ"},
+        {"name":"Sebe","length":167,  "mbti":"ESTJ"},
+        {"name":"Arinah",  "length":164,  "mbti":"ENFP"}
+    ]
+}

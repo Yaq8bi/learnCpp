@@ -1,0 +1,5 @@
+Signal      | Type  | Length | Description              
+--------------------------------------------------------
+temperature | float |    4   | Sensor temperature in °C
+pressure    | int   |    2   | Pressure in Pascals      
+status      | bool  |    1   | System active status     

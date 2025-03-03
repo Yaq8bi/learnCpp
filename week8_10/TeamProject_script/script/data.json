@@ -1,0 +1,7 @@
+{
+    "signals": [
+        {"name": "temperature", "type": "float", "length": 4, "comment": "Sensor temperature in °C"},
+        {"name": "pressure", "type": "int", "length": 2, "comment": "Pressure in Pascals"},
+        {"name": "status", "type": "bool", "length": 1, "comment": "System active status"}
+    ]
+}
