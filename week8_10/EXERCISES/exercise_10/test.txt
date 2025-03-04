@@ -1,0 +1,3 @@
+The new position of the pointer can int main(
+    current position in the file. To do that, we must always open the file in the binary mode: it can either be in reading binary or writing binary modes. Then, we are passing the number of positions to move from the current position as the offset argument and the value 1 as the whence argument 
+)also be set relative to its to the method.
