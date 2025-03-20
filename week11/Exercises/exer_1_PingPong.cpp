@@ -8,8 +8,8 @@ constexpr int PONG{1};
 constexpr int ITERATIONS{10};
 
 static std::mutex mtx;
-static std::condition_variable cv;
-static volatile int ping_pong = PING; // shared variable :goes between PING{0} and PONG{1}
+static std::condition_variable cv; // make it wait untill a condition is met.
+static volatile int ping_pong = PING; // shared variable, lives in the RAM, not in register(CPU) :goes between PING{0} and PONG{1}
 
 void ping(){
     for (int i = 0; i < ITERATIONS; i++)
@@ -17,7 +17,7 @@ void ping(){
         std::unique_lock<std::mutex> lock{mtx};
 
         cv.wait(lock, []
-                { return (ping_pong == PING); });
+                { return (ping_pong == PING); }); // wait until ping_pong is PING{0}
 
         std::cout << "Ping - ";
         ping_pong = PONG;
