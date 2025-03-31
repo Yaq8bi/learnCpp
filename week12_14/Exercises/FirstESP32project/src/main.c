@@ -5,7 +5,7 @@
 #include <driver/gpio.h>
 #include <esp_task_wdt.h>
 
-#define MAX 20
+#define MAX_STRING_LEN 20
 /* CHAT GPT to convert my code, it gave me this, analyze first !!!!*/
 int toUpperCase(char *str)
 {
@@ -70,45 +70,41 @@ void app_main(void)
     //  Component Config -> ESP System Settings -> Watch CPU0 Idle Task
     ESP_ERROR_CHECK(esp_task_wdt_delete(xTaskGetIdleTaskHandle()));
 
-
-
-    char string[MAX + 1]; // Max 20 chars + 1 for null terminator
+    char string[MAX_STRING_LEN + 1]; // Max 20 chars + 1 for null terminator
     int error;
 
-    while(1){
-  
-
-    do
+    while (1)
     {
-        error = 0;
-        printf("Input a string: \n");
-        fgets(string, sizeof(string), stdin); // getline functionality just like in c++.
 
-        // Remove newline if present
-        size_t len = strlen(string);
-        if (len > 0 && string[len - 1] == '\n') // replace new line with terminating null char.
+        do
         {
-            string[len - 1] = '\0';
-        }
+            error = 0;
+            printf("Input a string: \n");
+            fgets(string, sizeof(string), stdin); // getline functionality just like in c++.
 
-        if (strlen(string) > MAX)
-        {
-            error = 1;
-            printf("This string is too long, max 20 chars allowed: %s\v", string);
-        }
-        else if (!toUpperCase(string))
-        {
-            error = 1;
-            printf("This string has capital letters, only small letters allowed: %s\v", string);
-            continue;
-        }
-    } while (error);
+            // Remove newline if present
+            size_t len = strlen(string);
+            if (len > 0 && string[len - 1] == '\n') // replace new line with terminating null char.
+            {
+                string[len - 1] = '\0';
+            }
 
-    toUpperCase(string);
-    toReverse(string);
+            if (strlen(string) > MAX_STRING_LEN)
+            {
+                error = 1;
+                printf("This string is too long, max 20 chars allowed: %s\v", string);
+            }
+            else if (!toUpperCase(string))
+            {
+                error = 1;
+                printf("This string has capital letters, only small letters allowed: %s\v", string);
+                continue;
+            }
+        } while (error);
 
-    printf("\n%s\n", string);
+        toUpperCase(string);
+        toReverse(string);
 
-
-  }
+        printf("\n%s\n", string);
+    }
 }
