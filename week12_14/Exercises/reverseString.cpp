@@ -1,11 +1,6 @@
 #include <iostream>
 #include <algorithm>
-
-// max 20 CHAR                                  *pass
-// output shall reverse string and uppercase it *pass
-// lower case input only                        *fail
-// a to z only                                  *fail
-
+ 
 void toUpperCase(std::string &str)
 {
     for (char &ch : str)

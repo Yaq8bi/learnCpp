@@ -99,7 +99,7 @@ static void consumer(Stack<T, SIZE> &stack)
         std::this_thread::sleep_for(std::chrono::milliseconds(500 + (rand() % 501)));
     }
 }
-
+~
 int main(void)
 {
     int value{0};
