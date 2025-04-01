@@ -6,7 +6,7 @@
 
 #define MAX_STRING_LEN 20
 
-void toReverse(char *str)
+void toReverse(char *str) // pointer to the str
 {
     int hasDigit = 0;
     int len = strlen(str);
@@ -69,34 +69,22 @@ void app_main(void)
 
     char string[MAX_STRING_LEN + 1]; // Max 20 chars + 1 for null terminator
 
-
     while (1)
     {
-            while (EOF != getchar()) // clean buffer
-            {
-                ;
-            }
-            printf("Enter a String: ");
+        while (EOF != getchar()) // clean buffer
+        {
+            ;
+        }
+        printf("Enter a String: ");
 
-            // Comunicationi between esp32 and pc is serial, so data is tranferred in bytes{ Putchar, getchar}.
-            size_t len = strlen(string);
-            size_t length = get_string(string, len);
+        // Comunicationi between esp32 and pc is serial, so data is tranferred in bytes{ Putchar, getchar}.
+        size_t length = get_string(string, MAX_STRING_LEN);
 
-            if (strlen(string) > MAX_STRING_LEN)
-            {
-                // error = 1;
-                printf("This string is too long, max 20 chars allowed: %s\v", string);
-            }
-            else
-            {
-                ;
-            }
 
-            if (length > 0)
-            {
-                toReverse(string);
-            }
-        // } while (error);
+        if (length > 0)
+        {
+            toReverse(string);
+        }
 
         printf("\n%s\n", string);
     }
