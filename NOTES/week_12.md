@@ -23,6 +23,7 @@ Name:
 zephyr
 Location: home/yaq8bi[Home folder]
 */
+- zephyr.dts (Has the device tree source file details, everyty peripheral files merged/combined into one file).
 
 ### X'e config project.
 [X'e bas,proje folderi ustunde right click, confugure, zephyrSDK path]
@@ -138,3 +139,13 @@ extern "C" void app_main(void) // extern C means its a C function[ Tells the com
 }
 
 ```
+
+## READ and ANALYZE the code:
+![alt text](image.png)
+
+```c
+time_t now={0}; //  time_t is a data type that represents time in seconds since the epoch (00:00:00 UTC on 1 January 1970).
+struct tm *_infoOfTime = localtime(&now); // is a function that converts a time_t value to a struct tm, which contains the broken-down time representation.
+```
+- 1. Get the current time using time(&now).
+- 2. Convert the time to a human-readable format using 

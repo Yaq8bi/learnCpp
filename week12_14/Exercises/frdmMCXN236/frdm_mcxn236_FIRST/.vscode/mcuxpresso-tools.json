@@ -1,0 +1,17 @@
+{
+  "version": "25.2",
+  "toolchainPath": "",
+  "linkedProjects": [],
+  "trustZoneType": "none",
+  "multicoreType": "none",
+  "debug": {
+    "linkserver": {},
+    "pemicro": {},
+    "segger": {}
+  },
+  "projectType": "zephyr-workspace",
+  "sdk": {
+    "version": "4.1.0",
+    "path": "/home/yaq8bi/zephyr"
+  }
+}
